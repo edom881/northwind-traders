@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dddf196-1c98-4837-bdf7-2ea4cf706fea" name="Changes" comment="Execute a query to select all products and display each product name to the screen">
+    <list default="true" id="8dddf196-1c98-4837-bdf7-2ea4cf706fea" name="Changes" comment="Add home menu and customer display query">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/NorthwindMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/NorthwindMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,13 +85,31 @@
       <option name="project" value="LOCAL" />
       <updated>1781667260092</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Display products in formatted table with price and stock">
+      <option name="closed" value="true" />
+      <created>1781667924863</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1781667924863</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add home menu and customer display query">
+      <option name="closed" value="true" />
+      <created>1781668188909</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1781668188909</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added dependencies to pom.xml" />
     <MESSAGE value="Connected to the northwind database" />
     <MESSAGE value="Execute a query to select all products and display each product name to the screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Execute a query to select all products and display each product name to the screen" />
+    <MESSAGE value="Display products in formatted table with price and stock" />
+    <MESSAGE value="Add home menu and customer display query" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add home menu and customer display query" />
   </component>
 </project>
