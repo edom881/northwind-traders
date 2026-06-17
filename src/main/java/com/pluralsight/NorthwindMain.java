@@ -5,30 +5,54 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class NorthwindMain {
+
     public static void main(String[] args) {
 
         String url = "jdbc:mysql://localhost:3306/northwind";
         String username = "root";
         String password = "yearup26";
 
-        try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("What do you want to do?");
+        System.out.println("1) Display all products");
+        System.out.println("2) Display all customers");
+        System.out.println("0) Exit");
+        System.out.print("Select an option: ");
+
+        String choice = scanner.nextLine();
+
+        if (choice.equals("1")) {
+            displayProducts(url, username, password);
+        } else if (choice.equals("2")) {
+            displayCustomers(url, username, password);
+        } else if (choice.equals("0")) {
+            System.out.println("Goodbye!");
+        } else {
+            System.out.println("Invalid option. Please choose 1, 2, or 0.");
+        }
+
+        scanner.close();
+    }
+
+    public static void displayProducts(String url, String username, String password) {
+
+        String query = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products";
+
+        try (
+                Connection connection = DriverManager.getConnection(url, username, password);
+                Statement statement = connection.createStatement();
+                ResultSet results = statement.executeQuery(query)
+        ) {
             System.out.println("Connected!");
+            System.out.println();
 
-            Statement statement = connection.createStatement();
-
-            // Get Product ID, Product Name, Unit Price, and Units in Stock
-            ResultSet results = statement.executeQuery(
-                    "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products"
-            );
-
-            // Print table header
             System.out.printf("%-5s %-35s %-10s %-10s%n", "Id", "Name", "Price", "Stock");
             System.out.println("----- ----------------------------------- ---------- ----------");
 
-            // Print each product in table format
             while (results.next()) {
                 int productId = results.getInt("ProductID");
                 String productName = results.getString("ProductName");
@@ -44,7 +68,54 @@ public class NorthwindMain {
                 );
             }
 
-            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void displayCustomers(String url, String username, String password) {
+
+        String query = "SELECT ContactName, CompanyName, City, Country, Phone " +
+                "FROM customers " +
+                "ORDER BY Country";
+
+        try (
+                Connection connection = DriverManager.getConnection(url, username, password);
+                Statement statement = connection.createStatement();
+                ResultSet results = statement.executeQuery(query)
+        ) {
+            System.out.println("Connected!");
+            System.out.println();
+
+            System.out.printf(
+                    "%-25s %-40s %-20s %-20s %-20s%n",
+                    "Contact Name",
+                    "Company Name",
+                    "City",
+                    "Country",
+                    "Phone"
+            );
+
+            System.out.println(
+                    "------------------------- ---------------------------------------- -------------------- -------------------- --------------------"
+            );
+
+            while (results.next()) {
+                String contactName = results.getString("ContactName");
+                String companyName = results.getString("CompanyName");
+                String city = results.getString("City");
+                String country = results.getString("Country");
+                String phone = results.getString("Phone");
+
+                System.out.printf(
+                        "%-25s %-40s %-20s %-20s %-20s%n",
+                        contactName,
+                        companyName,
+                        city,
+                        country,
+                        phone
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
