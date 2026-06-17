@@ -149,6 +149,51 @@ public class NorthwindMain {
 
                 System.out.printf("%-15d %-25s%n", categoryId, categoryName);
             }
+            System.out.println();
+            System.out.print("Enter a category ID to see products in that category: ");
+            String categoryId = scanner.nextLine();
+
+            displayProductsByCategory(connection, categoryId);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void displayProductsByCategory(Connection connection, String categoryId) {
+
+        String productQuery = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock " +
+                "FROM products " +
+                "WHERE CategoryID = ?";
+
+        try (
+                PreparedStatement preparedStatement = connection.prepareStatement(productQuery)
+        ) {
+            preparedStatement.setString(1, categoryId);
+
+            try (
+                    ResultSet results = preparedStatement.executeQuery()
+            ) {
+                System.out.println();
+                System.out.println("Products in Category: " + categoryId);
+                System.out.printf("%-5s %-35s %-10s %-10s%n", "Id", "Name", "Price", "Stock");
+                System.out.println("----- ----------------------------------- ---------- ----------");
+
+                while (results.next()) {
+                    int productId = results.getInt("ProductID");
+                    String productName = results.getString("ProductName");
+                    double unitPrice = results.getDouble("UnitPrice");
+                    int unitsInStock = results.getInt("UnitsInStock");
+
+                    System.out.printf(
+                            "%-5d %-35s %-10.2f %-10d%n",
+                            productId,
+                            productName,
+                            unitPrice,
+                            unitsInStock
+                    );
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
